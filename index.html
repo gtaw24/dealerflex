@@ -11,7 +11,7 @@
         }
         textarea {
             width: 100%;
-            height: 150px;
+            height: 200px;
         }
         button {
             margin: 10px 0;
@@ -54,7 +54,8 @@
             const results = {};
 
             logs.forEach(line => {
-                const regex = /(\w+)\s+(\w+)\s+has ended the round (gaining|losing)\s+\$(\d+)/;
+                // Ensure we are only processing lines that match the expected format
+                const regex = /(\b\w+\b)\s+(\b\w+\b)\s+has ended the round (gaining|losing)\s+\$(\d+)/;
                 const match = line.match(regex);
 
                 if (match) {
