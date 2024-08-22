@@ -15,6 +15,9 @@
         }
         button {
             margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
         }
         table {
             width: 100%;
@@ -33,7 +36,7 @@
 <body>
     <h1>Game Logs Parser</h1>
     <textarea id="logs" placeholder="Paste your logs here..."></textarea>
-    <button onclick="parseLogs()">Parse Logs</button>
+    <button id="parseButton">Parse Logs</button>
     <table id="resultsTable">
         <thead>
             <tr>
@@ -49,12 +52,14 @@
     </table>
 
     <script>
+        // Function to parse logs and update the table
         function parseLogs() {
             const logs = document.getElementById('logs').value.split('\n');
             const results = {};
 
             logs.forEach(line => {
-                // Ensure we are only processing lines that match the expected format
+                console.log("Processing line: ", line);
+
                 const regex = /(\b\w+\b)\s+(\b\w+\b)\s+has ended the round (gaining|losing)\s+\$(\d+)/;
                 const match = line.match(regex);
 
@@ -81,6 +86,7 @@
             displayResults(results);
         }
 
+        // Function to display the results in the table
         function displayResults(results) {
             const tbody = document.getElementById('resultsTable').querySelector('tbody');
             tbody.innerHTML = '';
@@ -96,6 +102,9 @@
                 tbody.innerHTML += row;
             }
         }
+
+        // Attach the parseLogs function to the button click event
+        document.getElementById('parseButton').addEventListener('click', parseLogs);
     </script>
 </body>
 </html>
